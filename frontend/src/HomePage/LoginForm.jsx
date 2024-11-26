@@ -1,12 +1,12 @@
 import React from 'react';
-
+import LoginSuccess from '../Component/LoginSuccess';
 
 export default function LoginForm() {
     const[user,setUser]=React.useState({
         username:'',
         password:''
     });
-  
+  const [userStatus,setUserStatus]=React.useState(false);
   const handleOnChange=(event)=>{
     const{name,value}=event.target;
     setUser({...user,[name]:value});
@@ -24,7 +24,12 @@ export default function LoginForm() {
         });
         if(response.ok){
             const data=await response.json();
-            alert(`Response from backend: ${data.message}`);
+            alert(`Response from backend: ${data.message.username}`);
+            setUser({
+                username:data.message.username,
+                password:data.message.password}
+            );
+            setUserStatus(true);
         }
         else
         {
@@ -63,6 +68,9 @@ export default function LoginForm() {
             type='submit'
             value='Submit'></input>
         </form>
+        {userStatus && 
+        <LoginSuccess/>
+       }
     </div>
   )
 }

@@ -1,12 +1,13 @@
 import React from 'react';
-import HomePage from "./HomePage/home"
+import HomePage from "./HomePage/home";
+export const UserStatus=React.createContext(null);
 
 function App() {
-
+  const [userStatus,setUserStatus]=React.useState(false);
   return (
-    <div className="App">
+    <UserStatus.Provider value={{userStatus,setUserStatus}} >
     <HomePage />
-    </div>
+    </UserStatus.Provider>
   );
 }
 

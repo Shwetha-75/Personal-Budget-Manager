@@ -25,13 +25,18 @@ def index():
 @app.route('/login',methods=['GET','POST'])
 def main():
     # msg='
-
+    
     data=request.json
-    name=data.get('username')
+    name=data.get('username')+" all okay"
     password=data.get('password')
-    print("User Name :",name)
-    print("Password: ",password)
-    return jsonify({"message":f"Form received: UserName: {name}, Password:{password}"})
+                                                           
+    cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('select * from user')
+    account=cursor.fetchone()
+    # testing
+    data=list(account.items()) 
+    return jsonify({"message":{"username":data[0][1],"password":data[1][1]}})
+    
     
     # if request.method=='GET' and 'username' in request.form and 'password' in request.form:                                                        
     #     cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
