@@ -10,7 +10,7 @@ export default function Home() {
       axios.get("http://127.0.0.1:5000/")
       .then(response=>{
         setData(prev=>prev=response.data.message);
-        
+        console.log(data+"............");
       }).catch(error=>{
         console.error("Error while fetching the data",error)
       });
@@ -18,8 +18,8 @@ export default function Home() {
 
   return (
     <div>
+        
         <h1>Welcome to budget manager </h1>
-       <p>Message : {data}</p>
        <LoginForm/>
        
     </div>

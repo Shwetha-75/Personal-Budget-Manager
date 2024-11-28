@@ -1,12 +1,12 @@
 import React from 'react';
 import LoginSuccess from '../Component/LoginSuccess';
-
+import LoginFail from "../Component/LoginFail";
 export default function LoginForm() {
     const[user,setUser]=React.useState({
         username:'',
         password:''
     });
-  const [userStatus,setUserStatus]=React.useState(false);
+  const [userStatus,setUserStatus]=React.useState(null);
   const handleOnChange=(event)=>{
     const{name,value}=event.target;
     setUser({...user,[name]:value});
@@ -24,12 +24,22 @@ export default function LoginForm() {
         });
         if(response.ok){
             const data=await response.json();
-            alert(`Response from backend: ${data.message.username}`);
-            setUser({
-                username:data.message.username,
-                password:data.message.password}
-            );
-            setUserStatus(true);
+           
+            if(data.status===false){
+                
+                setUserStatus(false);
+            }
+            else{
+               
+                setUser({
+                   
+                    username:data.message.username,
+                    password:data.message.password}
+                );
+                setUserStatus(true);
+            }
+           
+            
         }
         else
         {
@@ -50,9 +60,12 @@ export default function LoginForm() {
             value={user.username||''}
             onChange={handleOnChange}
             placeholder='Enter the User Name'
-            ></input>
+            > 
+            </input>
             </label>
+
             <br></br>
+
             <label>
                 Enter the password
             <input
@@ -63,14 +76,19 @@ export default function LoginForm() {
             placeholder='Enter the Password'
             ></input>
             </label>
+
             <br></br>
+
             <input 
             type='submit'
             value='Submit'></input>
         </form>
-        {userStatus && 
+        {userStatus===true && 
         <LoginSuccess/>
        }
+
+       {userStatus===false &&
+       <LoginFail/>}
     </div>
   )
 }

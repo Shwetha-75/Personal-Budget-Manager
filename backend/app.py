@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors 
 import re 
 from flask_cors import CORS
+from Validation import PasswordValidation
 
 # Enable CORS for all routes
 app=Flask(__name__)
@@ -10,7 +11,6 @@ CORS(app)
 app.secret_key="secret_key_app"
 
 # app configuration
-
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='root321'
@@ -22,30 +22,31 @@ mysql=MySQL(app)
 def index():
     return jsonify({"message":'Message from flask'})
 
+def checking_password(user_entered_password,user_database_password):
+    return PasswordValidation.validation(user_entered_password,user_database_password)
+
 @app.route('/login',methods=['GET','POST'])
 def main():
-    # msg='
-    
+
+    flag=False
     data=request.json
-    name=data.get('username')+" all okay"
+    name=data.get('username')
     password=data.get('password')
-                                                           
+    
     cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('select * from user')
-    account=cursor.fetchone()
-    # testing
-    data=list(account.items()) 
-    return jsonify({"message":{"username":data[0][1],"password":data[1][1]}})
     
+    query = "SELECT * FROM user WHERE user_name=%s"
+    cursor.execute(query, (name,))
+    account = cursor.fetchone()
     
-    # if request.method=='GET' and 'username' in request.form and 'password' in request.form:                                                        
-    #     cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     cursor.execute('select * from user')
-    #     account=cursor.fetchone()
-    #     # testing
-    #     # print(account)
-    #     return jsonify({"message":'Message from flask'})
-    # return render_template("index.html")
+    #print(account)  #{'user_name': 'shwethak42@gmail.com', 'password': 'Shwetha@123'}
+    #testing
+     
+    if account:
+        flag=checking_password(password,account['password'])
+                                      
+    return jsonify({"status":True,"message":{"username":name,"password":password}}) if flag else jsonify({"status":False,"message":'User as entered invalid credentials'})
+    
 
 if __name__=="__main__":
     app.debug=True 
