@@ -1,17 +1,21 @@
 import React from 'react';
 import LoginSuccess from '../Component/LoginSuccess';
 import LoginFail from "../Component/LoginFail";
+import { UserStatus } from '../App';
+
 export default function LoginForm() {
+
+    const {userStatus,setUserStatus}=React.useContext(UserStatus);
     const[user,setUser]=React.useState({
         username:'',
         password:''
     });
-  const [userStatus,setUserStatus]=React.useState(null);
+ 
   const handleOnChange=(event)=>{
     const{name,value}=event.target;
     setUser({...user,[name]:value});
-  }
-
+  };
+ 
   const handleSubmit=async (event)=>{
     event.preventDefault();
     try{
@@ -31,8 +35,7 @@ export default function LoginForm() {
             }
             else{
                
-                setUser({
-                   
+                setUser({ 
                     username:data.message.username,
                     password:data.message.password}
                 );
@@ -53,7 +56,7 @@ export default function LoginForm() {
     <div>
         <form onSubmit={handleSubmit}>
         <label>
-                Enter the user name: 
+            Enter the user name: 
             <input
             type='text'
             name='username'

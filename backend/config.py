@@ -41,14 +41,13 @@ def main():
     cursor.execute(query, (name,))
     account = cursor.fetchone()
      
-    #print(account) 
-     
+    #print(account)  
     #{'user_name': 'shwethak42@gmail.com', 'password': 'Shwetha@123'}
     
     #testing 
     if account:
         flag=checking_password(password,account['password'])
-                                     
+                                      
     return jsonify({"status":True,"message":{"username":name,"password":password}}) if flag else jsonify({"status":False,"message":'User as entered invalid credentials'})
     
     
