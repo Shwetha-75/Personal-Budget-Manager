@@ -34,22 +34,18 @@ def main():
     data=request.json
     name=data.get('username')
     password=data.get('password')
-    
     cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    
     query = "SELECT * FROM user WHERE user_name=%s"
     cursor.execute(query, (name,))
     account = cursor.fetchone()
      
-    #print(account) 
-     
-    #{'user_name': 'shwethak42@gmail.com', 'password': 'Shwetha@123'}
+    #print(account) => {'user_name': 'shwethak42@gmail.com', 'password': 'Shwetha@123'}
     
-    #testing 
+    
     if account:
         flag=checking_password(password,account['password'])
                                      
-    return jsonify({"status":True,"message":{"username":name,"password":password}}) if flag else jsonify({"status":False,"message":'User as entered invalid credentials'})
+    return jsonify({"status":'True',"message":{"username":name,"password":password}}) if flag else jsonify({"status":'False',"message":'User as entered invalid credentials'})
     
     
 @app.route('/registration',methods=['POST'])

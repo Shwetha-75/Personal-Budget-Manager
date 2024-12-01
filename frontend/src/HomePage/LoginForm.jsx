@@ -29,9 +29,9 @@ export default function LoginForm() {
         if(response.ok){
             const data=await response.json();
            
-            if(data.status===false){
+            if(data.status==='False'){
                 
-                setUserStatus(false);
+                setUserStatus('False');
             }
             else{
                
@@ -39,7 +39,7 @@ export default function LoginForm() {
                     username:data.message.username,
                     password:data.message.password}
                 );
-                setUserStatus(true);
+                setUserStatus('True');
             }
            
             
@@ -79,18 +79,18 @@ export default function LoginForm() {
             placeholder='Enter the Password'
             ></input>
             </label>
-
             <br></br>
 
             <input 
             type='submit'
             value='Submit'></input>
+            
         </form>
-        {userStatus===true && 
+        {userStatus==='True' && 
         <LoginSuccess/>
        }
 
-       {userStatus===false &&
+       {userStatus==='False' &&
        <LoginFail/>}
     </div>
   )
