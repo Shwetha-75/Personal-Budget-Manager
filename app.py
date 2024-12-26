@@ -8,7 +8,7 @@ app=Flask(__name__)
 app.secret_key="secret_key_app"
 
 # app configuration
-
+print("hello")
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='root321'
