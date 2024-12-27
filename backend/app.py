@@ -11,10 +11,7 @@ CORS(app)
 app.secret_key="secret_key_app"
 
 # app configuration
-app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
-app.config['MYSQL_PASSWORD']='root321'
-app.config['MYSQL_DB']='personal_budget_manager'
+
 
 mysql=MySQL(app)
 
