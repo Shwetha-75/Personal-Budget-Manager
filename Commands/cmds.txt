@@ -1,0 +1,15 @@
+Creating virtual Environment 
+---> python -m venv folder_name
+Activating the virtual Environment & Navigate to virtual environment folder until scripts 
+---> activate 
+Deactivating the virtual environment 
+---> deactivate
+
+Install Flask 
+---> pip install  flask 
+Install mysql database : To establish connectivity between object oriented programming language and relational database 
+commands: pip install flask-mysqldb
+
+
+Syntax for commit:
+---> yy-mm-date_Project_Name[Contributor]: message
