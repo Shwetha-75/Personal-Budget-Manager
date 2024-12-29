@@ -29,7 +29,7 @@ export default function Main() {
         try{
         console.log(userData);
 
-            const response=await axios.post("http://127.0.0.1:5000/create",{userData},{ 
+            const response=await axios.post("http://127.0.0.1:5000/registration",{userData},{ 
                 headers: {
                     'Content-Type': 'application/json'
                     

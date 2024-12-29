@@ -2,12 +2,13 @@ import React from 'react';
 import LoginSuccess from '../Component/LoginSuccess';
 import LoginFail from "../Component/LoginFail";
 import { UserStatus } from '../App';
+import axios  from 'axios';
 
 export default function LoginForm() {
 
     const {userStatus,setUserStatus}=React.useContext(UserStatus);
     const[user,setUser]=React.useState({
-        username:'',
+        mail:'',
         password:''
     });
  
@@ -19,37 +20,17 @@ export default function LoginForm() {
   const handleSubmit=async (event)=>{
     event.preventDefault();
     try{
-        const response=await fetch('http://127.0.0.1:5000/login',{
-            method:'POST',
-            headers:{
-                "content-Type":"application/json",
-            },
-            body:JSON.stringify(user)
-        });
-        if(response.ok){
-            const data=await response.json();
-           
-            if(data.status==='False'){
-                
-                setUserStatus('False');
+        const response=await axios.post("http://127.0.0.1:5000/login",{user},{
+            Headers:{
+                'Content-Type': 'application/json'
+
             }
-            else{
-               
-                setUser({ 
-                    username:data.message.username,
-                    password:data.message.password}
-                );
-                setUserStatus('True');
-            }
-           
-            
-        }
-        else
-        {
-            console.error("Error submitting the form");
-        }
+        })
+        console.log(response.data);
+        setUserStatus(response.data)
+
     }catch(error){
-        console.log("Error",error);
+        console.log(error);
     }
   }
   return (
@@ -58,9 +39,9 @@ export default function LoginForm() {
         <label>
             Enter the user name: 
             <input
-            type='text'
-            name='username'
-            value={user.username||''}
+            type='mail'
+            name='mail'
+            value={user.mail||''}
             onChange={handleOnChange}
             placeholder='Enter the User Name'
             > 
@@ -86,11 +67,11 @@ export default function LoginForm() {
             value='Submit'></input>
             
         </form>
-        {userStatus==='True' && 
+        {userStatus==='ok' && 
         <LoginSuccess/>
        }
 
-       {userStatus==='False' &&
+       {userStatus==='no' &&
        <LoginFail/>}
     </div>
   )
