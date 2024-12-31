@@ -7,11 +7,11 @@ class UserValidation:
     def __init__(self):
         # private key 
         self.__user_data=None 
-
+        
     # checking if the user exists or not 
-    def checking_user_exist(self,user_email):
+    def checking_user_exist(self,user_email,db):
     # return true if the user exists else false 
-        self.__user_data=Configuration().get_database().collection('user_model_table').document(user_email).get()
+        self.__user_data=db.collection('user_model_table').document(user_email).get()
         return self.__user_data.exists
     
     def get_user_data(self):

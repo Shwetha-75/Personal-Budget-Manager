@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from "axios"
-
+import Success from './Success';
+import Failed from './Failed';
+import PasswordStatus from "./PasswordStatus";
 export default function Main() {
     const [userData,setUserData]=React.useState({
         first_name:'',
@@ -11,7 +13,7 @@ export default function Main() {
         confirm_password:'',
         mail:'',  
     });
-
+    const [userStatus,setUserStatus]=React.useState(false);
     const handleOnChange=(event)=>{
         const {name,value}=event.target;
         setUserData(prev=>({
@@ -21,24 +23,37 @@ export default function Main() {
      
     }
 
+   const [userPwdStatus,setUserPwdStatus]=React.useState({status:false,message:''})
+
     const handleOnSubmit=async (event)=>{
         event.preventDefault();
 
-                                   
-
-        try{
-        console.log(userData);
-
-            const response=await axios.post("http://127.0.0.1:5000/registration",{userData},{ 
-                headers: {
-                    'Content-Type': 'application/json'
-                    
-                }})
-                console.log(response.data)
-               
-        }catch(error){
-            console.log("Error while registration-"+error);
+        // validate the password criteria
+        if(!password_criteria_check(userData.password,userData.confirm_password)){
+            setUserPwdStatus(prev=>({
+                status:true,
+                
+            }))
         }
+        else
+        {
+            
+            try{
+                
+                console.log(userData);
+                const response=await axios.post("http://127.0.0.1:5000/registration",{userData},{ 
+                    
+                    headers: {
+                        'Content-Type': 'application/json'
+                        
+                    }})
+                    console.log(response.data)
+                    setUserStatus(response.data);
+                    
+                }catch(error){
+                    console.log("Error while registration-"+error);
+                }
+            }
         
     };
    return(
@@ -151,7 +166,24 @@ export default function Main() {
                     />
                    </form>
 
-        {<p></p>}
+       {userStatus==='ok' && <Success/>}
+       {userStatus==='no' && <Failed/>}
+       {userPwdStatus.status && 
+       <PasswordStatus 
+       message={userPwdStatus.message}
+       />}
     </div>
   )
+};
+
+function password_criteria_check(password,conf_password){
+    if(password.length<8 || password.length>15) return false ;
+    if(password.length!==conf_password.length) return false;
+    if(password!==conf_password) return false;
+    // check the criteria
+    let result_1=password.match('[a-z]');
+    let result_2=password.match('[A-Z]');
+    let result_3=password.match(/\d/g);
+    let result_4=password.match(/[~!@#$%^&*]/g);
+    return result_1!==null && result_2!==null && result_3!==null && result_4!==null;
 }
