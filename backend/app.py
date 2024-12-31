@@ -51,8 +51,9 @@ def login():
                 return "ok"
             else:
                 return "no"
-       
-    return "not exits"
+        else:
+            return "not"
+    
 @app.route('/')
 def index():
     return "working fine!!"

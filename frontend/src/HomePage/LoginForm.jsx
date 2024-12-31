@@ -2,6 +2,7 @@ import React from 'react';
 import LoginSuccess from '../Component/LoginSuccess';
 import LoginFail from "../Component/LoginFail";
 import { UserStatus } from '../App';
+import UserNotExist from './UserNotExist';
 import axios  from 'axios';
 
 export default function LoginForm() {
@@ -73,6 +74,9 @@ export default function LoginForm() {
 
        {userStatus==='no' &&
        <LoginFail/>}
+
+       {userStatus==='not' && 
+       <UserNotExist/>}
     </div>
   )
 }

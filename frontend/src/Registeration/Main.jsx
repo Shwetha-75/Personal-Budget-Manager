@@ -27,17 +27,20 @@ export default function Main() {
 
     const handleOnSubmit=async (event)=>{
         event.preventDefault();
-
+        const pwd_check=password_criteria_check(userData.password,userData.confirm_password)
+        if(!pwd_check[0]){
         // validate the password criteria
-        if(!password_criteria_check(userData.password,userData.confirm_password)){
-            setUserPwdStatus(prev=>({
+            setUserPwdStatus({
                 status:true,
-                
-            }))
+                message:pwd_check[1]
+            })
         }
         else
         {
-            
+            setUserPwdStatus({
+                status:false,
+                message:''
+            })
             try{
                 
                 console.log(userData);
@@ -168,6 +171,7 @@ export default function Main() {
 
        {userStatus==='ok' && <Success/>}
        {userStatus==='no' && <Failed/>}
+
        {userPwdStatus.status && 
        <PasswordStatus 
        message={userPwdStatus.message}
@@ -177,13 +181,14 @@ export default function Main() {
 };
 
 function password_criteria_check(password,conf_password){
-    if(password.length<8 || password.length>15) return false ;
-    if(password.length!==conf_password.length) return false;
+    if(password.length<8 )return [false,"its too weak"];
+    if(password.length>15)return [false,"password length is exceeding!"];
+    if(password.length!==conf_password.length) return [false,"password does not match !"];
     if(password!==conf_password) return false;
     // check the criteria
     let result_1=password.match('[a-z]');
     let result_2=password.match('[A-Z]');
     let result_3=password.match(/\d/g);
     let result_4=password.match(/[~!@#$%^&*]/g);
-    return result_1!==null && result_2!==null && result_3!==null && result_4!==null;
+    return [result_1!==null && result_2!==null && result_3!==null && result_4!==null,"please check the password criteria !"];
 }
