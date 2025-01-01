@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div>
           
-        <h1>Welcome to budget manager </h1>
+       
        <LoginForm/>
        
     </div>

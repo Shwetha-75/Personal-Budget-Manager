@@ -13,6 +13,8 @@ function App() {
   console.log(userStatus);
   return (
     <UserStatus.Provider value={{userStatus,setUserStatus,userRegistrationStatus,SetUserRegistrationStatus}} >
+   
+   <h1>Personal Budget Manager</h1>
    <Router>
     <Main/>
       <Routes>
