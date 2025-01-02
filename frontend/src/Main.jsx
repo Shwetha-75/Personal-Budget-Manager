@@ -1,16 +1,28 @@
 import React from 'react'
-import {Link} from "react-router-dom";
+import LoginForm from './HomePage/LoginForm';
+import Register from "./Registeration/Main";
 export default function Main() {
+  const [login,setLogin]=React.useState(true);
+  const [register,setRegister]=React.useState(false);
+
+  const handleOnClick=(value)=>{
+    if(value==='login'){
+      setLogin(true);
+      setRegister('register')
+    }
+    else{
+      setLogin(false);
+      setRegister(true);
+    }
+  }
+
   return (
-    <div className='bg-gray-900 opacity-30 w-[50%] ml-[25%] h-[60vh] mt-[20vh] rounded-[10px] border border-gray-900'>
-    <ul className='flex justify-around'>
-        <li>
-            <Link to='/login'>Login</Link>
-        </li>
-        <li>
-            <Link to='/registration'>Registration</Link>
-        </li>
-    </ul>
+    <div className='bg-black-900 bg:opacity-50 w-[30%] ml-[60%] h-[75vh] mt-[5%] rounded-[10px] border border-gray-900'>
+      
+  {login && <LoginForm
+    onClick={handleOnClick}
+  />}
+    {register && <Register/>}
     </div>
   )
 }

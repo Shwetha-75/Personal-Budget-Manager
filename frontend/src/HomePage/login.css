@@ -1,0 +1,37 @@
+.input--tag{
+    background:transparent;
+    outline:none;
+    color:rgb(188, 235, 254);
+    font-family: "Titillium Web", serif;
+    font-size:1.2rem;
+    border: 2px solid rgba(78, 78, 80, 0.609);
+   
+}
+.input--tag:focus{
+    transition: 1s;
+
+    background:transparent;
+    outline:none;
+    border: 2px solid rgba(162, 162, 164, 0.609);
+    color:rgb(188, 235, 254);
+   
+}
+.btn{
+    background:transparent;
+    outline:none;
+    cursor: pointer;
+    color:rgb(188, 235, 254);
+    font-family: "Titillium Web", serif;
+    font-size:1.4rem;
+    border: 2px solid rgba(78, 78, 80, 0.609);
+}
+.btn:hover{
+    transition: 1s;
+    background:rgba(0, 0, 0, 0.199);
+    outline:none;
+    cursor: pointer;
+    color:rgb(255, 255, 255);
+    font-family: "Titillium Web", serif;
+    font-size:1.4rem;
+    border: 2px solid rgba(150, 150, 150, 0.609);
+}

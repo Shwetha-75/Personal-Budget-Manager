@@ -15,13 +15,13 @@ function App() {
     <UserStatus.Provider value={{userStatus,setUserStatus,userRegistrationStatus,SetUserRegistrationStatus}} >
    
    <h1>Personal Budget Manager</h1>
-   <Router>
+   {/* <Router> */}
     <Main/>
-      <Routes>
+      {/* <Routes>
         <Route path='/login' element={<Login/>}></Route>
         <Route path="/registration" element={<Registration/>}> </Route>
       </Routes>
-    </Router>
+    </Router> */}
     </UserStatus.Provider>
   );
 }

@@ -1,5 +1,6 @@
 class User:
     def __init__(self,first_name,last_name,phone,gender,password,confirm_password,mail):
+        
         self.first_name=first_name 
         self.last_name=last_name
         self.mail=mail
@@ -7,6 +8,8 @@ class User:
         self.gender=gender
         self.password=password
         self.confirm_password=confirm_password 
+    
+        
     def set_first_name(self,first_name):
         self.first_name=first_name 
     def set_last_name(self,last_name):
@@ -21,6 +24,7 @@ class User:
         self.password=password
     def set_confirm_password(self,confirm_password):
         self.confirm_password=confirm_password 
+    
     # --------------------------------------
     def get_first_name(self):
         return self.first_name 
